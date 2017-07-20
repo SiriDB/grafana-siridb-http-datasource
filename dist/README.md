@@ -10,6 +10,10 @@ it might be a good choice to install SiriDB HTTP on your Grafana server.
 Make sure to configure SiriDB HTTP to allow Basic Authentication. Optionally you can also choose
 to disable authentication.
 
+>Note: at least SiriDB server version 2.0.14 is required since this plugin makes use of the
+>limit aggregation function.
+
+
 ## Installation
 
 Go to the Grafana plugins folder. (usually this is /var/lib/grafana/plugins/)

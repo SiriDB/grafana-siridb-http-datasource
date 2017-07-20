@@ -20,9 +20,15 @@
             <span class="gf-form-label width-7">Aggregation</span>
             <select type="text" class="gf-form-input" ng-model="ctrl.target.aggr" ng-change="ctrl.onChangeInternal()" required>
                 <option value="mean">mean</option>
+                <option value="sum">sum</option>
+                <option value="count">count</option>
                 <option value="median">median</option>
                 <option value="median_low">median low</option>
                 <option value="median_high">median high</option>
+                <option value="min">min</option>
+                <option value="max">max</option>
+                <option value="variance">variance</option>
+                <option value="pvariance">pvariance</option>
             </select>
         </div>
     </div>
