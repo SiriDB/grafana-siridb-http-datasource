@@ -5,7 +5,7 @@ A SiriDB datasource plugin for Grafana.
 SiriDB HTTP is required for this plugin. If you do not have a SiriDB HTTP instance running then
 it might be a good choice to install SiriDB HTTP on your Grafana server.
 
-[https://github.com/transceptor-technology/siridb-http](https://github.com/transceptor-technology/siridb-http)
+[https://github.com/transceptor-technology/siridb-http](https://github.com/transceptor-technology/siridb-http#readme)
 
 Make sure to configure SiriDB HTTP to allow Basic Authentication. Optionally you can also choose
 to disable authentication.

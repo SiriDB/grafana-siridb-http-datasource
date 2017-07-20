@@ -2,7 +2,7 @@
   "name": "grafana-siridb-http-datasource",
   "private": true,
   "version": "1.0.0",
-  "description": "",
+  "description": "SiriDB datasource plugin for Grafana",
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/grunt-cli/bin/grunt",
