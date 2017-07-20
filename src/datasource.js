@@ -133,17 +133,6 @@ export class SiriDBDatasource {
   }
 
   extractSeries(result) {
-    return result.data.series.map((arr, i) => { return {text: arr[0], value: i};});
-  }
-
-  mapToTextValue(result) {
-    return _.map(result.data, (d, i) => {
-      if (d && d.text && d.value) {
-        return { text: d.text, value: d.value };
-      } else if (_.isObject(d)) {
-        return { text: d, value: i};
-      }
-      return { text: d, value: d };
-    });
+    return result.data.series.map(arr => { return {text: arr[0], value: arr[0]};});
   }
 }

@@ -179,20 +179,8 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
         }, {
           key: "extractSeries",
           value: function extractSeries(result) {
-            return result.data.series.map(function (arr, i) {
-              return { text: arr[0], value: i };
-            });
-          }
-        }, {
-          key: "mapToTextValue",
-          value: function mapToTextValue(result) {
-            return _.map(result.data, function (d, i) {
-              if (d && d.text && d.value) {
-                return { text: d.text, value: d.value };
-              } else if (_.isObject(d)) {
-                return { text: d, value: i };
-              }
-              return { text: d, value: d };
+            return result.data.series.map(function (arr) {
+              return { text: arr[0], value: arr[0] };
             });
           }
         }]);
