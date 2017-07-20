@@ -1,0 +1,17 @@
+<datasource-http-settings current="ctrl.current" suggest-url="http://localhost:8080">
+</datasource-http-settings>
+
+<h3 class="page-heading">SiriDB Details</h3>
+<div class="gf-form-group">
+    <div class="gf-form-inline">
+        <div class="gf-form max-width-30">
+            <span class="gf-form-label width-7">Time precision</span>
+            <select type="text" class="gf-form-input" ng-model="ctrl.current.jsonData.timePrecision"  required>
+                <option value="s">second</option>
+                <option value="ms">milisecond</option>
+                <option value="us">microsecond</option>
+                <option value="ns">nanosecond</option>
+            </select>
+        </div>
+    </div>
+</div>

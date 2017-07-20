@@ -1,0 +1,60 @@
+<query-editor-row query-ctrl="ctrl" class="generic-datasource-query-row" has-text-edit-mode="true">
+
+  <div ng-if="ctrl.target.raw === null" class="gf-form-inline">
+
+    <div class="gf-form-inline">
+      <div class="gf-form gf-form-grow">
+        <label class="gf-form-label width-5">Series</label>
+        <input type="text"
+               class="gf-form-input width-30"
+               ng-model="ctrl.target.target"
+               spellcheck='false'
+               placeholder="series name"
+               ng-change="ctrl.onChangeInternal()">
+        </input>
+      </div>
+    </div>
+
+    <div class="gf-form-inline">
+      <div class="gf-form max-width-30">
+            <span class="gf-form-label width-7">Aggregation</span>
+            <select type="text" class="gf-form-input" ng-model="ctrl.target.aggr" ng-change="ctrl.onChangeInternal()" required>
+                <option value="mean">mean</option>
+                <option value="median">median</option>
+                <option value="median_low">median low</option>
+                <option value="median_high">median high</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="gf-form-inline">
+      <div class="gf-form max-width-30">
+        <span class="gf-form-label width-5">Group</span>
+        <select type="text" class="gf-form-input" ng-model="ctrl.target.group" ng-change="ctrl.onChangeInternal()" required>
+          <option value="">when required</option>
+          <option value="1m">per minute</option>
+          <option value="1h">per hour</option>
+          <option value="1d">per day</option>
+        </select>
+      </div>
+    </div>
+    <gf-form-switch class="gf-form" label="Diff" label-class="width-4" checked="ctrl.target.diff" on-change="ctrl.onChangeInternal()"></gf-form-switch>
+
+  </div>
+
+  <div ng-if="ctrl.target.raw !== null" class="gf-form-inline">
+
+    <div class="gf-form-inline">
+      <div class="gf-form gf-form-grow">
+        <label class="gf-form-label width-7">Raw query</label>
+        <textarea class="gf-form-input width-30"
+                  rows="5"
+                  ng-model="ctrl.target.raw"
+                  spellcheck="false"
+                  ng-blur="ctrl.onChangeInternal()"
+                  placeholder="raw siridb query" />
+        </input>
+      </div>
+    </div>
+  </div>
+</query-editor-row>
