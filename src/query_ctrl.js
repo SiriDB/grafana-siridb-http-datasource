@@ -24,6 +24,7 @@ export class SiriDBDatasourceQueryCtrl extends QueryCtrl {
 
   toggleEditorMode() {
     this.target.raw = (this.target.raw === null) ? buildQuery(this.target) : null;
+    this.panelCtrl.refresh();
   }
 
   onChangeInternal() {

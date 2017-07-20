@@ -88,6 +88,7 @@ System.register(['app/plugins/sdk', './css/query-editor.css!', './tools.js'], fu
           key: 'toggleEditorMode',
           value: function toggleEditorMode() {
             this.target.raw = this.target.raw === null ? buildQuery(this.target) : null;
+            this.panelCtrl.refresh();
           }
         }, {
           key: 'onChangeInternal',
