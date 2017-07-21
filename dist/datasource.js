@@ -58,6 +58,7 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
         _createClass(SiriDBDatasource, [{
           key: "buildSiriDBQuery",
           value: function buildSiriDBQuery(target, start, end, maxDataPoints) {
+
             var rawQuery = target.raw === null ? buildQuery(target) : target.raw;
             var query = rawQuery.replace(/__START__/g, start).replace(/__END__/g, end).replace(/__MAX_DATA_POINTS__/g, maxDataPoints);
             return query;
@@ -66,28 +67,27 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
           key: "buildTargets",
           value: function buildTargets(targets) {
             targets = targets.filter(function (t) {
-              return !t.hide;
+              return !t.hide && t.hasOwnProperty('raw') && (t.query !== 'select' || t.raw !== null || t.target);
             });
 
-            if (!targets.length) {
-              return [];
-            }
+            if (targets.length > 1) {
+              var pivot = targets[0];
+              var tmp = targets.filter(function (t) {
+                return t.aggr === pivot.aggr && t.group === pivot.group && t.diff === pivot.diff && t.raw === null && t.query === 'select';
+              });
 
-            var pivot = targets[0];
-            var tmp = targets.filter(function (t) {
-              return t.aggr === pivot.aggr && t.group === pivot.group && t.diff === pivot.diff && t.raw === null;
-            });
-
-            if (tmp.length === targets.length) {
-              targets = [{
-                aggr: pivot.aggr,
-                group: pivot.group,
-                diff: pivot.diff,
-                raw: pivot.raw,
-                target: targets.map(function (t) {
-                  return wrapTarget(t.target);
-                }).join(',')
-              }];
+              if (tmp.length === targets.length) {
+                targets = [{
+                  query: pivot.query,
+                  aggr: pivot.aggr,
+                  group: pivot.group,
+                  diff: pivot.diff,
+                  raw: pivot.raw,
+                  target: targets.map(function (t) {
+                    return wrapTarget(t.target);
+                  }).join(',')
+                }];
+              }
             }
 
             return targets;
@@ -128,7 +128,9 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
             var data = [];
 
             responses.forEach(function (res) {
-              for (var seriesName in res.data) {
+              if (res.data && res.data.columns !== undefined && res.data.columns.length && _.isString(res.data.columns[0])) {
+                data.push(_this2.processTableResult(res.data));
+              } else for (var seriesName in res.data) {
                 var points = res.data[seriesName].map(function (point) {
                   return [point[1], point[0] * _this2.factor];
                 });
@@ -141,6 +143,19 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
             });
 
             return { data: data };
+          }
+        }, {
+          key: "processTableResult",
+          value: function processTableResult(res) {
+            var table = {
+              columns: res.columns.map(function (col) {
+                return { text: col };
+              }),
+              rows: res.servers || res.pools || res.series || res.users || res.groups || res.shards,
+              type: 'table'
+            };
+
+            return table;
           }
         }, {
           key: "testDatasource",

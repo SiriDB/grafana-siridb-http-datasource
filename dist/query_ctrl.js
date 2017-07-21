@@ -75,6 +75,18 @@ System.register(['app/plugins/sdk', './css/query-editor.css!', './tools.js'], fu
           _this.target.group = _this.target.group || '';
           _this.target.raw = _this.target.raw || null;
           _this.target.diff = _this.target.diff || false;
+          _this.target.query = _this.target.query || 'select';
+          _this.target.list = _this.target.list || 'servers';
+          _this.target.props = _this.target.props || [];
+
+          _this.listProps = {
+            servers: ['active_handles', 'address', 'buffer_path', 'buffer_size', 'dbpath', 'ip_support', 'libuv', 'log_level', 'max_open_files', 'mem_usage', 'name', 'online', 'open_files', 'pool', 'port', 'received_points', 'reindex_progress', 'startup_time', 'status', 'sync_progress', 'uptime', 'uuid', 'version'],
+            users: ['access', 'name'],
+            series: ['end', 'length', 'name', 'pool', 'start', 'type'],
+            pools: ['pool', 'series', 'servers'],
+            shards: ['end', 'pool', 'server', 'sid', 'size', 'start', 'status', 'type'],
+            groups: ['expression', 'name', 'series']
+          };
           return _this;
         }
 
@@ -88,6 +100,20 @@ System.register(['app/plugins/sdk', './css/query-editor.css!', './tools.js'], fu
           key: 'toggleEditorMode',
           value: function toggleEditorMode() {
             this.target.raw = this.target.raw === null ? buildQuery(this.target) : null;
+            if (this.target.target) {
+              this.panelCtrl.refresh();
+            }
+          }
+        }, {
+          key: 'removeProp',
+          value: function removeProp(prop, idx) {
+            this.target.props.splice(idx, 1);
+            this.panelCtrl.refresh();
+          }
+        }, {
+          key: 'appendProp',
+          value: function appendProp() {
+            this.target.props.push(this.listProps[this.target.list][0]);
             this.panelCtrl.refresh();
           }
         }, {

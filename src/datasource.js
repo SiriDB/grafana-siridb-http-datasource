@@ -26,6 +26,7 @@ export class SiriDBDatasource {
   }
 
   buildSiriDBQuery(target, start, end, maxDataPoints) {
+
     let rawQuery = (target.raw === null) ? buildQuery(target) : target.raw;
     let query = rawQuery
       .replace(/__START__/g, start)
@@ -35,26 +36,26 @@ export class SiriDBDatasource {
   }
 
   buildTargets(targets) {
-    targets = targets.filter(t => !t.hide);
+    targets = targets.filter(t => !t.hide && t.hasOwnProperty('raw') && (t.query !== 'select' || t.raw !== null || t.target));
 
-    if (!targets.length) {
-      return [];
-    }
+    if (targets.length > 1) {
+      let pivot = targets[0];
+      let tmp = targets.filter(t => t.aggr === pivot.aggr &&
+                                    t.group === pivot.group &&
+                                    t.diff === pivot.diff &&
+                                    t.raw === null &&
+                                    t.query === 'select');
 
-    let pivot = targets[0];
-    let tmp = targets.filter(t => t.aggr === pivot.aggr &&
-                                  t.group === pivot.group &&
-                                  t.diff === pivot.diff &&
-                                  t.raw === null);
-
-    if (tmp.length === targets.length) {
-      targets = [{
-        aggr: pivot.aggr,
-        group: pivot.group,
-        diff: pivot.diff,
-        raw: pivot.raw,
-        target: targets.map(t => wrapTarget(t.target)).join(',')
-      }];
+      if (tmp.length === targets.length) {
+        targets = [{
+          query: pivot.query,
+          aggr: pivot.aggr,
+          group: pivot.group,
+          diff: pivot.diff,
+          raw: pivot.raw,
+          target: targets.map(t => wrapTarget(t.target)).join(',')
+        }];
+      }
     }
 
     return targets;
@@ -89,7 +90,12 @@ export class SiriDBDatasource {
     var data = [];
 
     responses.forEach(res => {
-      for (let seriesName in res.data) {
+      if (res.data &&
+          res.data.columns !== undefined &&
+          res.data.columns.length &&
+          _.isString(res.data.columns[0])) {
+          data.push(this.processTableResult(res.data));
+      } else for (let seriesName in res.data) {
         let points = res.data[seriesName].map((point) => [point[1], point[0] * this.factor]);
 
         data.push({
@@ -100,6 +106,18 @@ export class SiriDBDatasource {
     });
 
     return {data: data};
+  }
+
+  processTableResult(res) {
+    let table = {
+      columns: res.columns.map(col => {
+        return { text: col };
+      }),
+      rows: res.servers || res.pools || res.series || res.users || res.groups || res.shards,
+      type: 'table'
+    };
+
+    return table;
   }
 
   testDatasource() {

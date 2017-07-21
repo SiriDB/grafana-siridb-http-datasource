@@ -4,12 +4,15 @@ function wrapTarget(target) {
 }
 
 function buildQuery(target) {
+    if (target.query === 'list') {
+        return `list ${target.list} ${target.props.join(', ')}`;
+    }
     let group = (target.group) ? `${target.aggr}(${target.group}) => ` : '';
     let diff = (target.diff) ? ` => difference()` : '';
     return `select
-  ${group}limit(__MAX_DATA_POINTS__, ${target.aggr})${diff}
+${group}limit(__MAX_DATA_POINTS__, ${target.aggr})${diff}
 from
-  ${wrapTarget(target.target)}
+${wrapTarget(target.target)}
 between __START__ and __END__`;
 }
 

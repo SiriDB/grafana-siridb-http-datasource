@@ -14,6 +14,63 @@ export class SiriDBDatasourceQueryCtrl extends QueryCtrl {
     this.target.group = this.target.group || '';
     this.target.raw = this.target.raw || null;
     this.target.diff = this.target.diff || false;
+    this.target.query = this.target.query || 'select';
+    this.target.list = this.target.list || 'servers';
+    this.target.props = this.target.props || [];
+
+    this.listProps = {
+      servers: [
+        'active_handles',
+        'address',
+        'buffer_path',
+        'buffer_size',
+        'dbpath',
+        'ip_support',
+        'libuv',
+        'log_level',
+        'max_open_files',
+        'mem_usage',
+        'name',
+        'online',
+        'open_files',
+        'pool',
+        'port',
+        'received_points',
+        'reindex_progress',
+        'startup_time',
+        'status',
+        'sync_progress',
+        'uptime',
+        'uuid',
+        'version'],
+      users: [
+        'access',
+        'name'],
+      series: [
+        'end',
+        'length',
+        'name',
+        'pool',
+        'start',
+        'type'],
+      pools: [
+        'pool',
+        'series',
+        'servers'],
+      shards: [
+        'end',
+        'pool',
+        'server',
+        'sid',
+        'size',
+        'start',
+        'status',
+        'type'],
+      groups: [
+        'expression',
+        'name',
+        'series']
+    }
   }
 
   getOptions() {
@@ -24,6 +81,18 @@ export class SiriDBDatasourceQueryCtrl extends QueryCtrl {
 
   toggleEditorMode() {
     this.target.raw = (this.target.raw === null) ? buildQuery(this.target) : null;
+    if (this.target.target) {
+      this.panelCtrl.refresh();
+    }
+  }
+
+  removeProp(prop, idx) {
+    this.target.props.splice(idx, 1);
+    this.panelCtrl.refresh();
+  }
+
+  appendProp() {
+    this.target.props.push(this.listProps[this.target.list][0]);
     this.panelCtrl.refresh();
   }
 

@@ -9,9 +9,12 @@ System.register([], function (_export, _context) {
     }
 
     function buildQuery(target) {
+        if (target.query === 'list') {
+            return 'list ' + target.list + ' ' + target.props.join(', ');
+        }
         var group = target.group ? target.aggr + '(' + target.group + ') => ' : '';
         var diff = target.diff ? ' => difference()' : '';
-        return 'select\n  ' + group + 'limit(__MAX_DATA_POINTS__, ' + target.aggr + ')' + diff + '\nfrom\n  ' + wrapTarget(target.target) + '\nbetween __START__ and __END__';
+        return 'select\n' + group + 'limit(__MAX_DATA_POINTS__, ' + target.aggr + ')' + diff + '\nfrom\n' + wrapTarget(target.target) + '\nbetween __START__ and __END__';
     }
 
     return {
