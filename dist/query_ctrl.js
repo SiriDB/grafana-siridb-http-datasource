@@ -75,6 +75,7 @@ System.register(['app/plugins/sdk', './css/query-editor.css!', './tools.js'], fu
           _this.target.group = _this.target.group || '';
           _this.target.raw = _this.target.raw || null;
           _this.target.diff = _this.target.diff || false;
+          _this.target.diffps = _this.target.diffps || false;
           _this.target.query = _this.target.query || 'select';
           _this.target.list = _this.target.list || 'servers';
           _this.target.props = _this.target.props || [];

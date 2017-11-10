@@ -14,7 +14,8 @@ System.register([], function (_export, _context) {
         }
         var group = target.group ? target.aggr + '(' + target.group + ') => ' : '';
         var diff = target.diff ? ' => difference()' : '';
-        return 'select\n' + group + 'limit(__MAX_DATA_POINTS__, ' + target.aggr + ')' + diff + '\nfrom\n' + wrapTarget(target.target) + '\nbetween __START__ and __END__';
+        var diffps = target.diffps ? ' => derivative(1s)' : '';
+        return 'select\n' + group + 'limit(__MAX_DATA_POINTS__, ' + target.aggr + ')' + diff + diffps + '\nfrom\n' + wrapTarget(target.target) + '\nbetween __START__ and __END__';
     }
 
     return {

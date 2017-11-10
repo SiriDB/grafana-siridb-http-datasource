@@ -9,8 +9,9 @@ function buildQuery(target) {
     }
     let group = (target.group) ? `${target.aggr}(${target.group}) => ` : '';
     let diff = (target.diff) ? ` => difference()` : '';
+    let diffps = (target.diffps) ? ` => derivative(1s)` : '';
     return `select
-${group}limit(__MAX_DATA_POINTS__, ${target.aggr})${diff}
+${group}limit(__MAX_DATA_POINTS__, ${target.aggr})${diff}${diffps}
 from
 ${wrapTarget(target.target)}
 between __START__ and __END__`;

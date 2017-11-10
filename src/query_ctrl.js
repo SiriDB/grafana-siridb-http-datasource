@@ -14,6 +14,7 @@ export class SiriDBDatasourceQueryCtrl extends QueryCtrl {
     this.target.group = this.target.group || '';
     this.target.raw = this.target.raw || null;
     this.target.diff = this.target.diff || false;
+    this.target.diffps = this.target.diffps || false;
     this.target.query = this.target.query || 'select';
     this.target.list = this.target.list || 'servers';
     this.target.props = this.target.props || [];

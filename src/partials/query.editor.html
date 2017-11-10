@@ -54,6 +54,7 @@
     </div>
 
     <gf-form-switch ng-if="ctrl.target.query == 'select'" class="gf-form" label="Diff" label-class="width-4" checked="ctrl.target.diff" on-change="ctrl.onChangeInternal()"></gf-form-switch>
+    <gf-form-switch ng-if="ctrl.target.query == 'select'" class="gf-form" label="DiffPs" label-class="width-4" checked="ctrl.target.diffps" on-change="ctrl.onChangeInternal()"></gf-form-switch>
 
     <div ng-if="ctrl.target.query === 'list'" class="gf-form-inline">
       <div class="gf-form max-width-30">

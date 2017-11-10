@@ -43,6 +43,7 @@ export class SiriDBDatasource {
       let tmp = targets.filter(t => t.aggr === pivot.aggr &&
                                     t.group === pivot.group &&
                                     t.diff === pivot.diff &&
+                                    t.diffps === pivot.diffps &&
                                     t.raw === null &&
                                     t.query === 'select');
 
@@ -52,6 +53,7 @@ export class SiriDBDatasource {
           aggr: pivot.aggr,
           group: pivot.group,
           diff: pivot.diff,
+          diffps: pivot.diffps,
           raw: pivot.raw,
           target: targets.map(t => wrapTarget(t.target)).join(',')
         }];

@@ -73,7 +73,7 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
             if (targets.length > 1) {
               var pivot = targets[0];
               var tmp = targets.filter(function (t) {
-                return t.aggr === pivot.aggr && t.group === pivot.group && t.diff === pivot.diff && t.raw === null && t.query === 'select';
+                return t.aggr === pivot.aggr && t.group === pivot.group && t.diff === pivot.diff && t.diffps === pivot.diffps && t.raw === null && t.query === 'select';
               });
 
               if (tmp.length === targets.length) {
@@ -82,6 +82,7 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
                   aggr: pivot.aggr,
                   group: pivot.group,
                   diff: pivot.diff,
+                  diffps: pivot.diffps,
                   raw: pivot.raw,
                   target: targets.map(function (t) {
                     return wrapTarget(t.target);
