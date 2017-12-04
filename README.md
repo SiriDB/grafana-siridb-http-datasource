@@ -31,3 +31,6 @@ Restart Grafana
 ```
 sudo systemctl restart grafana-server.service
 ```
+
+## Usage
+See the following blog article on hot to configure and use this plugin: https://github.com/transceptor-technology/grafana-siridb-http-example.
