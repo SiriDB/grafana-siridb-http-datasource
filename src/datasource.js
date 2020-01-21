@@ -75,7 +75,8 @@ export class SiriDBDatasource {
     let promises = [];
 
     targets.forEach(t => {
-      let query = this.buildSiriDBQuery(t, start, end, options.maxDataPoints);
+      var query = this.buildSiriDBQuery(t, start, end, options.maxDataPoints);
+      query = this.templateSrv.replace(query, options.scopedVars, 'regex');
 
       promises.push(this.backendSrv.datasourceRequest({
         url: this.url + '/query',
