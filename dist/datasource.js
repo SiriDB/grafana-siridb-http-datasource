@@ -110,9 +110,10 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
 
             targets.forEach(function (t) {
               var query = _this.buildSiriDBQuery(t, start, end, options.maxDataPoints);
+              query = _this.templateSrv.replace(query, options.scopedVars, 'regex');
 
               promises.push(_this.backendSrv.datasourceRequest({
-                url: _this.url + '/query',
+                url: _this.url,
                 data: { query: query },
                 method: 'POST',
                 headers: _this.headers
@@ -164,7 +165,7 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
             var _this3 = this;
 
             return this.backendSrv.datasourceRequest({
-              url: this.url + '/query',
+              url: this.url,
               method: 'POST',
               data: { query: 'show time_precision' },
               headers: this.headers
@@ -186,7 +187,7 @@ System.register(["lodash", "./tools.js"], function (_export, _context) {
             var query = { query: "list series /" + target + ".*/ limit 1" };
 
             return this.backendSrv.datasourceRequest({
-              url: this.url + '/query',
+              url: this.url,
               data: query,
               method: 'POST',
               headers: this.headers

@@ -79,7 +79,7 @@ export class SiriDBDatasource {
       query = this.templateSrv.replace(query, options.scopedVars, 'regex');
 
       promises.push(this.backendSrv.datasourceRequest({
-        url: this.url + '/query',
+        url: this.url,
         data: {query: query},
         method: 'POST',
         headers: this.headers
@@ -125,7 +125,7 @@ export class SiriDBDatasource {
 
   testDatasource() {
     return this.backendSrv.datasourceRequest({
-      url: this.url + '/query',
+      url: this.url,
       method: 'POST',
       data: {query: 'show time_precision'},
       headers: this.headers
@@ -146,7 +146,7 @@ export class SiriDBDatasource {
     var query = { query: `list series /${target}.*/ limit 1` }
 
     return this.backendSrv.datasourceRequest({
-      url: this.url + '/query',
+      url: this.url,
       data: query,
       method: 'POST',
       headers: this.headers
