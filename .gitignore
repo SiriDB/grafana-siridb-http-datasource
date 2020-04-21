@@ -3,7 +3,7 @@ npm-debug.log
 coverage/
 .aws-config.json
 awsconfig
-.package-lock.json
+package-lock.json
 /emails/dist
 /public_gen
 /tmp
