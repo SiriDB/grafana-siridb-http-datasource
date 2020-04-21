@@ -20,8 +20,8 @@
       {"name": "GitHub", "url": "https://github.com/transceptor-technology/grafana-siridb-http-datasource"},
       {"name": "MIT License", "url": "https://github.com/transceptor-technology/grafana-siridb-http-datasource/blob/master/LICENSE"}
     ],
-    "version": "1.0.0",
-    "updated": "2017-07-17"
+    "version": "1.2.0",
+    "updated": "2020-04-21"
   },
 
   "dependencies": {
