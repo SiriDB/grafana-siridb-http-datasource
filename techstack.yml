@@ -2,7 +2,7 @@ repo_name: SiriDB/grafana-siridb-http-datasource
 report_id: c0ddf362f9a1cf56a6fd03147420e3b4
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T08:35:02+00:00'
+timestamp: '2024-02-29T18:53:11+00:00'
 requested_by: joente
 provider: github
 branch: master
